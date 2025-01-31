@@ -1,18 +1,12 @@
-// Get elements
-const brandName = document.querySelector('.brand-name');
-const logo = document.querySelector('.logo');
+window.addEventListener("wheel", function(event) {
+  const scrollWrapper = document.querySelector('.scroll-wrapper');
+  
+  // Prevent the default vertical scroll behavior
+  event.preventDefault();
 
-// Event listener for scroll
-window.addEventListener('scroll', () => {
-  const scrollPosition = window.scrollY;
-
-  if (scrollPosition > 100) {
-    // When scrolling down
-    brandName.style.opacity = 0;  // Fade out the brand name
-    logo.style.display = 'block'; // Show the logo
-  } else {
-    // When at the top
-    brandName.style.opacity = 1;  // Show the brand name
-    logo.style.display = 'none';  // Hide the logo
+  // Only consider the vertical scroll (deltaY) and apply it to horizontal scroll
+  if (event.deltaY !== 0) {
+    // Adjust horizontal scroll position based on the vertical scroll delta
+    scrollWrapper.scrollLeft += event.deltaY;
   }
-});
+}, { passive: false }); // { passive: false } allows us to use event.preventDefault()
